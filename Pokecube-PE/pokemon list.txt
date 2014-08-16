@@ -1,4 +1,4 @@
-//POKEMON
+//List of Pokemon that can be captured, and their variable.
 	var Ariados = null;
 	var Aerodactyl = null;
 	var Bayleef = null;

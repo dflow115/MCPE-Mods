@@ -1,0 +1,13 @@
+//list of items in pokecube pe as of v3
+Masterball
+Pokeball
+Greatball
+Rare Candy
+Potion
+Pokeflute
+Egg
+Firestone
+Thunderstone
+Waterstone
+Sunstone
+Moonstone

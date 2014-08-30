@@ -1,13 +1,13 @@
-//list of items in pokecube pe as of v3
-Masterball
-Pokeball
-Greatball
-Rare Candy
-Potion
-Pokeflute
-Egg
-Firestone
-Thunderstone
-Waterstone
-Sunstone
-Moonstone
+//list of items in pokecube pe as of v3 and their pokedollar prices
+Masterball - $2000
+Pokeball - $200
+Greatball - $600
+Rare Candy - $1200
+Potion - $200
+Pokeflute - $1000
+Mysterious Egg - $1000
+Firestone - $900
+Thunderstone - $900
+Waterstone - $900
+Sunstone - $900
+Moonstone - $900

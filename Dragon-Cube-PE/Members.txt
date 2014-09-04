@@ -1,3 +1,4 @@
 Hexdro - Main Coder. @hexdro_
-NGameBro - Main Coder. @ngamebro
-Wayne Lee - Bug Fixer
+NGameBro - Main Coder and Textures. @ngamebro
+Wayne Lee - Bug Fixer.
+Antonio / Prince Anti - Models and Textures. @antimodpe

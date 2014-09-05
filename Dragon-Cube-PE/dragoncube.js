@@ -1,15 +1,31 @@
-//code
 ModPE.setItem(500,"blaze_powder",0,"Senzubean");
 ModPE.setItem(501,"blaze_rod",0,"Space Pod");
 ModPE.setItem(502,"slimeball",0,"Dragon Ball Set");
+ModPE.setItem(503,"emerald",0,"Hyperbolic Time Chamber");
 
 var raceNamek = 0;
 var raceSaiyan = 0;
 var raceMajin = 0;	
 var chosenRace = 0;
 
+var namekX = 0;
+var namekY = 0;
+var namekZ = 0;
+
+var chamberX = 0;
+var chamberY = 0;
+var chamberZ = 0;
+
+var kaiX = 0;
+var kaiY = 0;
+var kaiZ = 0;
+
+var heavenX = 0;
+var heavenY = 0;
+var heavenZ = 0; 
+
 //buttons
-var kiButton
+var kiButton = null;
 
 
 //transformations
@@ -52,27 +68,29 @@ var travelKingKai = 0;
 
 //story mobs
 var mob = null;
-var Raditz = null; //20
-var Nappa = null; //30
-var Vegeta = null; //40
-var Frieza = null; //50 
-var Android = null; //60
-var DrGero = null; //70
-var Cell = null; //80
-var Broly = null; //90
-var Dabura = null; //100
-var Buu = null; //110
-var Bills = null; //120
+var Raditz = null; //20 done
+var Nappa = null; //30 done
+var Vegeta = null; //40 done
+var Frieza = null; //50  done
+var Android = null; //60 human
+var DrGero = null; //70 human
+var Cell = null; //80 done
+var Broly = null; //90 done
+var Dabura = null; //100 done
+var Buu = null; //110 done
+var Bills = null; //120 done
 
 //mobs
-var Saibaman = null; //10 hp
-var alienSoldier = null; // 15 hp
-var Saiyan = null; //20 hp
-var Namekian = null; // 15 hp
+var Saibaman = null; //10 hp done
+var alienSoldier = null; // 15 hp done
+var Saiyan = null; //20 hp done
+var Namekian = null; // 15 hp done
 
 var killedStory = 1;
 
 //npcs
+var Yemma = null; //done
+var kingKai = null; //done
 
 //ki attacks
 var velX;
@@ -82,6 +100,7 @@ var velZ;
 function story(){
 if(storyProgress == 0)
 {
+genStruc();
 structure();
 print("Story Started - Structures Generated");
 clientMessage("You play the role of Earths Hero, click to continue.");
@@ -147,16 +166,15 @@ clientMessage("<Android> Oh I saw you fight in the Data Videos.");
 if(storyProgress == 6)
 {
 print("Fight the Doctor!");
+clientMessage("<Dr Gero> ... Your too weak for me fool!");
+}
+if(storyProgress == 7)
+{
 
 }
-
 }
 
-function structure(){
-
-}
-
-function useItem(){
+function useItem(x, y, z,itemId, blockId, side){
 if(itemId == 500)
 {
 ki = maxKi;
@@ -173,6 +191,10 @@ if(itemId == 502)
 {
 wishSystem();
 addItemInventory(502, -1);
+}
+if(itemId == 503)
+{
+hyperBolicTimeChamber();
 }
 }
 
@@ -712,12 +734,24 @@ function leaveGame() {    //Get rid of it when we leave the world
   }}));
 }
 
+
+function attackHook(attacker, victim)
+{
+if(victim == kingKai)
+{
+kingKaisPlanet();
+}
+if(victim == Yemma)
+{
+respawn();
+}
+}
+
 function spacePod(){
 if(travel==0)
 {
 travel = 1;
-setPosition(getPlayerEnt(), 10, 10, 3); //x y z
-Level.setSpawn(10,10,3); 
+setPosition(getPlayerEnt(), namekX, namekY, namekZ); //x y z
 print("To Namek");
 clientMessage("<Spacepod> You have arrived at Namek.");
 }
@@ -725,9 +759,66 @@ else if(travel == 1)
 {
 travel = 0;
 setPosition(getPlayerEnt(), spacePodX, spacePodY, spacePodZ);
-Level.setSpawn(spacePodX, spacePodY, spacePodZ);
 print("To Earth");
 clientMessage("<Spacepod> You have arrived back at Earth.");
+}
+}
+
+function kingKaisPlanet(){
+if(travelKingKai==0)
+{
+travelKingKai = 1;
+setPosition(getPlayerEnt(), kaiX, kaiY, kaiZ); //x y z
+print("To King Kais Planet");
+clientMessage("<King Kai> Welcome to my planet..");
+}
+else if(travelKingKai == 1)
+{
+travelKingKai = 0;
+setPosition(getPlayerEnt(), heavenX, heavenY, heavenZ);
+print("To Heaven");
+clientMessage("<King Kai> You have arrived back at Heaven.");
+}
+}
+
+
+function genStruc(){
+
+}
+
+function respawn(){
+if(travel == 0)
+{
+setPosition(getPlayerEnt(), spacePodX, spacePodY, spacePodZ);
+}
+if(travel == 1)
+{
+setPosition(getPlayerEnt(), namekX, namekY, namekZ);
+}
+}
+
+function hyperBolicTimeChamber()
+{
+if(travelHyperBolic==0)
+{
+travelHyperBolic = 1;
+setPosition(getPlayerEnt(), kaiX, kaiY, kaiZ); //x y z
+print("Hyper Bolic Time Chamber");
+clientMessage("<Console> Welcome to the Hyper Bolic Time Chamber.");
+}
+else if(travelHyperBolic == 1)
+{
+travelHyperBolic = 0;
+if(travel == 0)
+{
+setPosition(getPlayerEnt(), spacePodX, spacePodY, spacePodZ);
+}
+if(travel == 1)
+{
+setPosition(getPlayerEnt(), namekX, namekY, namekZ);
+}
+print("Exiting");
+clientMessage("<Console> You have exited the Hyperbolic Time Chamber.");
 }
 }
 
@@ -745,6 +836,7 @@ function charge()
 if(charging == 0)
 {
 charging = 1;
+print("Cannot move whilst Charging");
 }
 else if(charging == 1)
 {
@@ -803,15 +895,59 @@ clientMessage("<Console> You descended to your normal form!");
 }
 
 function transformTwo(){
+if(transformed == 0)
+{
+ki -= 80;
+if(raceMajin == 1)
+{
+print("Kid Majin Activated");
+clientMessage("<Console> You transformed into a Kid Majin!");
+}
+if(raceNamek == 1)
+{
+print("Super Namekian Activated");
+clientMessage("<Console> You transformed into a Super Namekian");
 
+}
+if(raceSaiyan == 1)
+{
+print("Super Saiyan God Activated");
+clientMessage("<Console> You transformed into a Super Saiyan God!");
+}
+}
+else if(transformed == 1)
+{
+transform = 0;
+clientMessage("<Console> You descended to your normal form!");
+}
 }
 
 var chargeTimer = 0;
+var timerHyper = 0;
+var timerPlanet = 0;
 
 function modTick(){
+if(travelHyperBolic == 1)
+{
+timerHyper += 1;
+if(timerHyper == 4)
+{
+timerHyper = 0;
+ki += 0.25
+}
+}
+if(travelKingKai == 1)
+{
+timerPlanet += 1;
+if(timerPlanet == 5)
+{
+timePlanet = 0;
+ki += 0.2
+}
+}
 if(charging == 1)
 {
-
+setPosition(getPlayerEnt(), getPlayerX(), getPlayerY(), getPlayerZ); //x y z
 chargeTimer += 1;
 if(chargeTimer == 4)
 {
